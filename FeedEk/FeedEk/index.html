@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="content-language" content="en" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <title></title>
 <link href="css/FeedEk.css" rel="stylesheet" type="text/css" />
-<link href="dist/css/ionic.css" rel="stylesheet" type="text/css" />
-<style>
-    body{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;background-color: #efefef;font-size: 13px;line-height: 17px !important;}
-    .rssDiv{float: left;padding-right: 35px;}
-    ul{width: 300px !important;}
-</style>
 </head>
 <body>
-    <div class="rssDiv">
+<div class="scrollable">
+    <div id="content" class="rssDiv wrap">
         <p><strong></strong></p>
         <div id="divRss2"></div>
     </div>
 	<div id="divXmlString" style="display:none;"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-langs.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.pullToRefresh.js"></script>
 <script type="text/javascript" src="js/FeedEk.js"></script>
-<script type="text/javascript" src="dist/js/angular/angular.js"></script>
-<script type="text/javascript" src="dist/js/ionic.js"></script>
-<script type="text/javascript" src="dist/js/ionic-angular.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -33,12 +28,12 @@
             MaxCount: 8,
             ShowDesc: true,
             ShowPubDate: true,
-            DescCharacterLimit: 300,
+            DescCharacterLimit: 301,
 			DateFormatLang:'fr'
         });
 
-    });
 
+});
 </script>
 </body>
 

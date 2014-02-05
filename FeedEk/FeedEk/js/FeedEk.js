@@ -5,6 +5,20 @@
 */
 
 (function ($) {
+
+
+$('.scrollable').pullToRefresh({
+    callback: function() {
+        var def = $.Deferred();
+        
+        setTimeout(function() {
+            def.resolve();      
+        }, 3000); 
+
+        return def.promise();
+    }
+        });
+
     $.fn.FeedEk = function (opt) {
         var def = $.extend({
             FeedUrl: "http://rss.cnn.com/rss/edition.rss",
@@ -22,18 +36,15 @@
 		var i=0;
 		
         $.ajax({
-            url: "http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + def.MaxCount + "&output=json_xml&q=" + encodeURIComponent(def.FeedUrl) + "&hl=en&callback=?",
+            url: "http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + def.MaxCount + "&output=json_xml&q=" + encodeURIComponent(def.FeedUrl) + "&t="+new Date().getTime()+"&hl=en&callback=?",
             dataType: "json",
             success: function (data) {
+                console.log(data);
                 $("#" + id).empty();
                 $.each(data.responseData.feed.entries, function (e, item) {
                     s += '<li><div class="itemTitle"><a href="' + item.link + '" target="' + def.TitleLinkTarget + '" >' + item.title + "</a></div>";
-                    //console.log(data);
 					var xmlstr = data.responseData.xmlString;
 					$('#divXmlString').html(xmlstr);
-					//console.log(xmlstr);
-					//console.log(xmlstr.get(0));
-					//console.log(xmlstr.getElementsByTagName('enclosure')[0]);
 					//var entryImageUrl = $('#aaa').getElementsByTagName("enclosure")[0].getAttribute("url");
 					
                     if (def.ShowPubDate){
@@ -45,11 +56,11 @@
                     i++;
                     s += '<img height="80" src=' + entryImageUrl + ">";
                     if (def.ShowDesc) {
-                        if (def.DescCharacterLimit > 0 && item.content.length > def.DescCharacterLimit) {
-                            s += '<div class="itemContent">' + item.content.substr(0, def.DescCharacterLimit) + "...</div>";
+                        if (def.DescCharacterLimit > 0 && item.contentSnippet.length > def.DescCharacterLimit) {
+                            s += '<div class="itemContent">' + item.contentSnippet.substr(0, def.DescCharacterLimit) + "...</div>";
                         }
                         else {
-                            s += '<div class="itemContent">' + item.content + "</div>";
+                            s += '<div class="itemContent">' + item.contentSnippet + "</div>";
                         }
                     }
                 });
